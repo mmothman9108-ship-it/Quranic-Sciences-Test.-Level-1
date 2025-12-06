@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية تمتين للعلوم الشرعية</title>
+    
+    <!-- الخطوط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- أيقونات Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- إعدادات Tailwind المخصصة -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite alternate',
+                        'fadeIn': 'fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeIn: {
+                            'from': { opacity: '0', transform: 'translateY(10px) scale(0.98)' },
+                            'to': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* شريط التمرير المخصص */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 10px;
+        }
+        
+        /* فئات مساعدة */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            border-radius: 2.5rem;
+            transition: all 0.5s ease;
+        }
+        
+        .quiz-card {
+            background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 60px -15px rgba(59,130,246,0.15);
+            border-radius: 2.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .ios-btn {
+            position: relative;
+            width: 100%;
+            text-align: right;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            background-color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04), 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid #f9fafb;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .ios-btn:hover {
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+            border-color: rgba(219, 234, 254, 0.5);
+        }
+
+        .ios-btn:active {
+            transform: scale(0.98);
+        }
+
+        .ios-primary-btn {
+            background-image: linear-gradient(to right, #2563eb, #4f46e5);
+            color: white;
+            box-shadow: 0 10px 30px rgba(59,130,246,0.3);
+            border-radius: 9999px;
+            padding: 1.25rem 3rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid rgba(29, 78, 216, 0.2);
+            cursor: pointer;
+        }
+
+        .ios-primary-btn:hover {
+            box-shadow: 0 15px 40px rgba(59,130,246,0.4);
+            transform: translateY(-4px);
+        }
+
+        .ios-primary-btn:active {
+            transform: translateY(0);
+        }
+
+        .ios-secondary-btn {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            color: #475569;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border-radius: 9999px;
+            padding: 1rem 3rem;
+            font-weight: 700;
+            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .ios-secondary-btn:hover {
+            background-color: #f9fafb;
+        }
+        .ios-secondary-btn:active {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#F2F2F7] text-slate-800 p-4 md:p-6 overflow-x-hidden flex flex-col items-center justify-center relative">
+
+    <!-- خلفيات متحركة (Aurora Effect) -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[-20%] right-[-10%] w-[50rem] h-[50rem] bg-blue-200/40 rounded-full mix-blend-multiply filter blur-[100px] animate-blob"></div>
+        <div class="absolute bottom-[-20%] left-[-10%] w-[50rem] h-[50rem] bg-purple-200/40 rounded-full mix-blend-multiply filter blur-[100px] animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute top-[40%] left-[20%] w-[40rem] h-[40rem] bg-pink-200/40 rounded-full mix-blend-multiply filter blur-[100px] animate-blob" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- الحاوية الرئيسية -->
+    <div id="app-container" class="w-full max-w-4xl relative z-10 flex flex-col gap-6">
+        <!-- سيتم حقن المحتوى هنا بواسطة JavaScript -->
+    </div>
+
+    <!-- سكربت التطبيق -->
+    <script>
+        // ---------------------------------------------------------
+        // البيانات
+        // ---------------------------------------------------------
+        const fullQuestions = [
+            { id: 1, q: 'التعريف المختار للقرآن الكريم هو كلام الله تعالى:', opts: ['المنزل على الأنبياء السابقين.', 'المنزل على النبي ﷺ، المتعبد بتلاوته، المنقول بالتواتر.', 'الموحى به بالمعنى فقط دون اللفظ.', 'المكتوب في اللوح المحفوظ فقط.'], a: 1 },
+            { id: 2, q: 'الوحي الذي ينزل مثل "صلصلة الجرس" كان:', opts: ['أسهل أنواع الوحي على النبي ﷺ.', 'أشد أنواع الوحي على النبي ﷺ.', 'يأتي للنبي ﷺ وهو نائم فقط.', 'خاصاً بالإنذار فقط.'], a: 1 },
+            { id: 3, q: 'نزل القرآن الكريم "منجماً" (مفرقاً) على مدى:', opts: ['10 سنوات.', '13 سنة.', '23 سنة.', '40 سنة.'], a: 2 },
+            { id: 4, q: 'الحكمة من نزول القرآن مفرقاً ولم ينزل جملة واحدة:', opts: ['لتسهيل حفظه وفهمه، وتثبيت فؤاد النبي ﷺ.', 'لعدم توفر أدوات الكتابة.', 'لأن النبي ﷺ كان مشغولاً بالحروب.', 'ليكون مثل التوراة والإنجيل.'], a: 0 },
+            { id: 5, q: 'الراجح في أول ما نزل من القرآن الكريم على الإطلاق:', opts: ['سورة الفاتحة.', 'سورة المدثر.', 'صدر سورة العلق (اقرأ باسم ربك...).', 'آية الكرسي.'], a: 2 },
+            { id: 6, q: 'الراجح أن آخر آية نزلت من القرآن الكريم هي:', opts: ['آية الدين.', 'آية الربا.', 'قوله تعالى: {واتقوا يوماً ترجعون فيه إلى الله...}.', 'سورة النصر.'], a: 2 },
+            { id: 7, q: 'ترتيب "الآيات" داخل السور هو أمر:', opts: ['توقيفي (بأمر من النبي ﷺ عن جبريل).', 'اجتهادي من الصحابة.', 'حسب طول الآية وقصرها.', 'حسب القافية.'], a: 0 },
+            { id: 8, q: 'الضابط المعتمد عند الجمهور في التفريق بين "المكي والمدني" هو:', opts: ['المكان: ما نزل بمكة مكي وما نزل بالمدينة مدني.', 'الزمان: ما نزل قبل الهجرة مكي وما نزل بعد الهجرة مدني.', 'الخطاب: ما كان (يا أيها الناس) مكي وما كان (يا أيها الذين آمنوا) مدني.', 'الطول: السور الطويلة مدنية والقصيرة مكية.'], a: 1 },
+            { id: 9, q: 'السورة التي تتحدث عن تفاصيل التشريع والحدود والفرائض غالباً ما تكون:', opts: ['مكية.', 'مدنية.', 'لا علاقة لها بالمكي والمدني.', 'مكية لكن آياتها قصيرة.'], a: 1 },
+            { id: 10, q: '"سبب النزول" يفيد المفسر في:', opts: ['معرفة اسم السورة.', 'فهم المعنى وإزالة الإشكال ومعرفة الحكمة من التشريع.', 'معرفة عدد آيات السورة.', 'معرفة القراءات العشر.'], a: 1 },
+            { id: 11, q: 'القاعدة عند المفسرين إذا نزلت آية لسبب خاص هي:', opts: ['العبرة بخصوص السبب لا بعموم اللفظ.', 'العبرة بعموم اللفظ لا بخصوص السبب.', 'الحكم خاص بالشخص الذي نزلت فيه فقط.', 'الآية منسوخة.'], a: 1 },
+            { id: 12, q: 'الطريق الصحيح لمعرفة أسباب النزول هو:', opts: ['الاجتهاد العقلي.', 'الرواية والسماع ممن عاصروا التنزيل (الصحابة).', 'القياس المنطقي.', 'اللغة العربية.'], a: 1 },
+            { id: 13, q: 'أعلى مراتب التفسير وأصحها:', opts: ['تفسير القرآن بالرأي.', 'تفسير القرآن بالقرآن.', 'تفسير القرآن بالإسرائيليات.', 'تفسير القرآن بأقوال التابعين.'], a: 1 },
+            { id: 14, q: 'التفسير بالمأثور يعتمد بشكل أساسي على:', opts: ['المنقول عن النبي ﷺ والصحابة والتابعين.', 'الاجتهاد العقلي والنظريات الفلسفية.', 'الإشارات الصوفية.', 'القواعد النحوية فقط.'], a: 0 },
+            { id: 15, q: '"الإسرائيليات" في كتب التفسير هي:', opts: ['آيات تتحدث عن بني إسرائيل.', 'قصص وأخبار منقولة عن أهل الكتاب (اليهود والنصارى).', 'أحاديث ضعيفة عن النبي ﷺ.', 'تفسيرات لغوية.'], a: 1 },
+            { id: 16, q: 'كتاب "جامع البيان" للإمام الطبري يعتبر المرجع الأول في:', opts: ['التفسير الإشاري.', 'التفسير بالمأثور.', 'التفسير الفقهي.', 'التفسير الموضوعي.'], a: 1 },
+            { id: 17, q: 'التفسير بالرأي "المحمود" (الجائز) هو:', opts: ['ما كان عن هوى ودون علم.', 'ما كان مبنياً على علم باللغة والشرع وقواعد التفسير.', 'ما خالف أقوال الصحابة.', 'ما اعتمد على العقل وترك النقل.'], a: 1 },
+            { id: 18, q: 'من أشهر كتب التفسير بالرأي (مع ملاحظة اعتزال مؤلفه):', opts: ['تفسير ابن كثير.', 'الكشاف للزمخشري.', 'الدر المنثور للسيوطي.', 'أحكام القرآن للجصاص.'], a: 1 },
+            { id: 19, q: 'التفسير الفقهي يهتم بـ:', opts: ['استنباط الأحكام الشرعية العملية من الآيات.', 'القصص القرآني.', 'النواحي البلاغية فقط.', 'توجيه القراءات.'], a: 0 },
+            { id: 20, q: 'كتاب "الجامع لأحكام القرآن" للإمام القرطبي يتميز بأنه:', opts: ['لا يذكر الخلاف الفقهي.', 'يتعصب للمذهب المالكي.', 'يذكر مذاهب العلماء وأدلتهم بإنصاف.', 'مختصر جداً.'], a: 2 },
+            { id: 21, q: 'التفسير الإشاري (الصوفي) يقبل بشرط:', opts: ['أن يكون صادرًا عن علماء الصوفية.', 'ألا يعارض الظاهر وأن يكون له شاهد شرعي.', 'أن يعتمد على القواعد الشاذة للغة العربية.', 'أن يتعارض مع المعنى الظاهر للآية.'], a: 1 },
+            { id: 22, q: 'في العصر الحديث، ظهر لون من التفسير يركز على قضايا المجتمع وسنن الكون، مثل:', opts: ['تفسير المنار (محمد عبده ورشيد رضا).', 'تفسير مقاتل بن سليمان.', 'تفسير الثعلبي.', 'تفسير الصابوني.'], a: 0 },
+            { id: 23, q: 'حكم الترجمة "الحرفية" للقرآن الكريم (محاولة نقل النظم والأسلوب):', opts: ['مستحيلة ومحرمة شرعاً.', 'واجبة.', 'جائزة ومستحبة.', 'مكروهة.'], a: 0 },
+            { id: 24, q: 'الترجمة الصحيحة المقبولة للقرآن هي:', opts: ['ترجمة الكلمات كلمة بكلمة.', 'ترجمة المعاني (الترجمة التفسيرية).', 'ترجمة الحروف المقطعة.', 'ترجمة الآيات.'], a: 1 },
+            { id: 25, q: 'الآيات "المحكمات" في القرآن هي:', opts: ['الآيات المنسوخة.', 'الآيات الواضحة الدلالة التي لا تحتمل إلا وجهاً واحداً.', 'الآيات التي استأثر الله بعلمها.', 'الآيات المتشابهة.'], a: 1 },
+            { id: 26, q: 'تفسير فخر الدين الرازي يُعدُّ من كتب:', opts: ['التفسير بالمأثور.', 'التفسير بالرأي.', 'التفسير الفقهي.', 'التفسير الإشاري.'], a: 1 },
+            { id: 27, q: '"النسخ" في القرآن يعني:', opts: ['نسخ الكتابة (نقلها).', 'رفع حكم شرعي متقدم بحكم شرعي متأخر.', 'إزالة الشبهة.', 'شرح الآية.'], a: 1 },
+            { id: 28, q: 'أنكر اليهود "النسخ" في الشرائع، ورد عليهم القرآن بأن:', opts: ['النسخ لا يقع في القرآن.', 'النسخ واقع لمصلحة العباد ورحمة بهم (نأت بخير منها أو مثلها).', 'النسخ في الأحكام.', 'النسخ خاص بالسنة فقط.'], a: 1 },
+            { id: 29, q: 'من أمثلة النسخ في القرآن:', opts: ['نسخ وجوب تقديم الصدقة قبل مناجاة الرسول ﷺ.', 'نسخ عقيدة التوحيد.', 'نسخ قصص الأنبياء.', 'نسخ الوعد والوعيد.'], a: 0 },
+            { id: 30, q: 'كتاب "مفاتيح الغيب" للفخر الرازي يغلب عليه:', opts: ['النقل والرواية.', 'المباحث العقلية والكونية والفلسفية.', 'الاختصار والإيجاز.', 'الاعتماد على الإسرائيليات.'], a: 1 },
+            { id: 31, q: 'الكرامة هي أمر خارق للعادة مقرون بالتحدي يجري على يد ولي.', opts: ['صح', 'خطأ'], a: 1 },
+            { id: 32, q: 'القراءات السبع هي الأحرف السبعة التي نزل بها القرآن الكريم.', opts: ['صح', 'خطأ'], a: 1 },
+            { id: 33, q: 'يجوز تفسير القرآن بالرأي المبني على الاعتقاد الشخصي دون أدلة.', opts: ['صح', 'خطأ'], a: 1 },
+            { id: 34, q: 'الإعجاز بالصرفة أحد وجوه إعجاز القرآن الكريم.', opts: ['صح', 'خطأ'], a: 1 },
+            { id: 35, q: 'تفسير "ابن كثير" يعتبر من أشهر وأصح كتب التفسير بالمأثور.', opts: ['صح', 'خطأ'], a: 0 },
+            { id: 36, q: 'النسخ في القرآن جائز عقلاً وواقع شرعاً.', opts: ['صح', 'خطأ'], a: 0 },
+            { id: 37, q: 'الترجمة التفسيرية للقرآن (ترجمة المعاني) جائزة وواجبة للتبليغ.', opts: ['صح', 'خطأ'], a: 0 },
+            { id: 38, q: 'كتاب "أحكام القرآن" للجصاص يعتبر مرجعاً في التفسير الفقهي عند الحنفية.', opts: ['صح', 'خطأ'], a: 0 },
+            { id: 39, q: 'الراسخون في العلم يعلمون تأويل المتشابه.', opts: ['صح', 'خطأ'], a: 1 },
+            { id: 40, q: 'من أسباب ضعف التفسير المأثور: حذف الأسانيد ودخول الإسرائيليات.', opts: ['صح', 'خطأ'], a: 0 },
+        ];
+
+        // ---------------------------------------------------------
+        // إدارة الحالة
+        // ---------------------------------------------------------
+        let state = {
+            step: 'start', // 'start', 'quiz', 'results'
+            qIndex: 0,
+            answers: {},
+            animating: false
+        };
+
+        const container = document.getElementById('app-container');
+
+        // ---------------------------------------------------------
+        // دوال المنطق
+        // ---------------------------------------------------------
+        
+        function setState(newState) {
+            state = { ...state, ...newState };
+            render();
+        }
+
+        function handleOptionSelect(optionIndex) {
+            if (state.animating) return; // منع النقر المزدوج
+
+            // تسجيل الإجابة
+            const currentQ = fullQuestions[state.qIndex];
+            const updatedAnswers = { ...state.answers, [currentQ.id]: optionIndex };
+            
+            // تحديث الحالة للإجابة فقط (دون إعادة رسم كاملة فوراً للحفاظ على الأنيميشن)
+            state.answers = updatedAnswers;
+            state.animating = true;
+
+            // إعادة رسم الزر المختار فقط لإظهار النتيجة (Feedback)
+            renderQuizButtons(true);
+
+            // تأخير الانتقال للسؤال التالي
+            setTimeout(() => {
+                if (state.qIndex < fullQuestions.length - 1) {
+                    setState({ qIndex: state.qIndex + 1, animating: false });
+                } else {
+                    setState({ step: 'results', animating: false });
+                }
+            }, 650);
+        }
+
+        function restartQuiz() {
+            setState({
+                step: 'quiz',
+                qIndex: 0,
+                answers: {},
+                animating: false
+            });
+        }
+
+        function goHome() {
+            setState({
+                step: 'start',
+                qIndex: 0,
+                answers: {},
+                animating: false
+            });
+        }
+
+        function calculateResults() {
+            let correctAnswers = 0;
+            let mcqCorrect = 0;
+            let tfCorrect = 0;
+            let mcqScore = 0;
+            let tfScore = 0;
+
+            fullQuestions.forEach(q => {
+                if (state.answers[q.id] === q.a) {
+                    correctAnswers++;
+                    if (q.id <= 30) mcqCorrect++;
+                    else tfCorrect++;
+                }
+            });
+
+            const totalScore = correctAnswers * 2;
+            mcqScore = mcqCorrect * 2;
+            tfScore = tfCorrect * 2;
+
+            return { totalScore, mcqScore, tfScore, correctAnswers };
+        }
+
+        // ---------------------------------------------------------
+        // دوال الرسم (Render)
+        // ---------------------------------------------------------
+
+        function renderHeader() {
+            return `
+            <header class="flex justify-between items-center px-4 py-2">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
+                        <i data-lucide="book-open" class="text-indigo-500 w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-black text-slate-800 tracking-tight">علوم القرآن الكريم</h1>
+                        <p class="text-xs text-slate-500 font-medium">د. نور الدين عتر رحمه الله</p>
+                    </div>
+                </div>
+            </header>
+            `;
+        }
+
+        function renderStartScreen() {
+            return `
+            <div class="glass-card min-h-[600px] flex flex-col items-center justify-center text-center p-8 md:p-12 relative overflow-hidden group animate-fadeIn">
+                
+                <!-- 3D Icon Container -->
+                <div class="mb-10 relative">
+                    <div class="absolute inset-0 bg-blue-400/20 blur-[60px] rounded-full"></div>
+                    <div class="relative bg-gradient-to-br from-white to-blue-50 p-8 rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(59,130,246,0.3)] border border-white">
+                        <i data-lucide="trophy" class="text-blue-500 w-20 h-20" stroke-width="1.5"></i>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl md:text-5xl font-black mb-6 text-slate-800 tracking-tight leading-tight">
+                    أكاديمية تمتين للعلوم الشرعية
+                </h2>
+                <p class="text-xl md:text-2xl text-slate-600 mb-12 max-w-2xl leading-relaxed font-bold">
+                    أسئلة اختبار مادة علوم القرآن الكريم / المستوى الأول
+                </p>
+
+                <button onclick="setState({ step: 'quiz' })" class="ios-primary-btn">
+                    <i data-lucide="play" class="w-6 h-6 fill-current"></i>
+                    <span>ابدأ الاختبار</span>
+                </button>
+
+                <div class="mt-16 flex flex-wrap justify-center gap-4">
+                   <span class="px-6 py-2 bg-white/50 border border-white shadow-sm rounded-full text-slate-600 font-semibold text-sm backdrop-blur-sm">40 سؤال</span>
+                   <span class="px-6 py-2 bg-white/50 border border-white shadow-sm rounded-full text-slate-600 font-semibold text-sm backdrop-blur-sm">شامل</span>
+                   <span class="px-6 py-2 bg-white/50 border border-white shadow-sm rounded-full text-slate-600 font-semibold text-sm backdrop-blur-sm">تحليل ذكي</span>
+                </div>
+            </div>
+            `;
+        }
+
+        function renderQuizScreen() {
+            const q = fullQuestions[state.qIndex];
+            const isMcq = q.id <= 30;
+            const progress = Math.round(((state.qIndex) / fullQuestions.length) * 100);
+
+            let html = `
+            <div class="animate-fadeIn w-full">
+                
+                <!-- Progress Indicator -->
+                <div class="mb-6 px-4">
+                   <div class="flex justify-between items-end mb-3">
+                     <span class="text-sm font-bold text-slate-500 bg-white/50 px-3 py-1 rounded-full backdrop-blur-sm shadow-sm border border-white/50">
+                        السؤال <span class="text-indigo-600">${state.qIndex + 1}</span> من ${fullQuestions.length}
+                     </span>
+                     <div class="flex items-center gap-1">
+                        <span class="text-2xl font-black text-indigo-600 drop-shadow-sm">${progress}</span>
+                        <span class="text-sm font-bold text-slate-400 mb-1">%</span>
+                     </div>
+                   </div>
+                   <!-- Progress Bar -->
+                   <div class="w-full bg-white/50 rounded-full h-5 p-1 backdrop-blur-md shadow-inner border border-white/40">
+                    <div class="relative h-full rounded-full overflow-hidden w-full">
+                        <div 
+                          class="absolute top-0 right-0 bottom-0 bg-gradient-to-l from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-700 ease-out shadow-sm"
+                          style="width: ${((state.qIndex) / fullQuestions.length) * 100}%"
+                        >
+                            <div class="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent"></div>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+
+                <div class="quiz-card p-6 md:p-10 min-h-[550px] flex flex-col relative">
+                  
+                  <!-- Question Tag -->
+                  <div class="mb-8">
+                    <span class="inline-flex items-center px-4 py-2 rounded-2xl text-sm font-bold border mb-5 shadow-sm transition-colors duration-300 ${
+                      isMcq ? 'bg-blue-50 text-blue-600 border-blue-100' : 'bg-purple-50 text-purple-600 border-purple-100'
+                    }">
+                      <i data-lucide="${isMcq ? 'pie-chart' : 'check'}" class="ml-2 w-4 h-4"></i>
+                      ${isMcq ? 'اختيار من متعدد' : 'صواب وخطأ'}
+                    </span>
+                    
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-slate-800 leading-normal">
+                      ${q.q}
+                    </h2>
+                  </div>
+
+                  <!-- Options Grid -->
+                  <div id="options-grid" class="grid gap-4 mt-auto">
+                    <!-- Buttons will be rendered by renderQuizButtons -->
+                  </div>
+                </div>
+            </div>
+            `;
+            return html;
+        }
+
+        function renderQuizButtons(showFeedback = false) {
+            const grid = document.getElementById('options-grid');
+            if (!grid) return;
+
+            const q = fullQuestions[state.qIndex];
+            const correctIndex = q.a;
+            const selectedIndex = state.answers[q.id];
+
+            let buttonsHtml = '';
+
+            q.opts.forEach((opt, idx) => {
+                let btnClass = "ios-btn hover:shadow-[0_12px_25px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 hover:border-blue-100/50";
+                let iconHtml = '<div class="w-6 h-6 rounded-full border-2 border-slate-200 group-hover:border-blue-400 group-hover:bg-blue-50 transition-all duration-300"></div>';
+
+                if (showFeedback) {
+                    if (idx === correctIndex) {
+                        btnClass = "ios-btn bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-[0_10px_30px_rgba(16,185,129,0.3)] border border-green-400 scale-[1.02] z-10";
+                        iconHtml = '<div class="bg-white/20 p-1 rounded-full backdrop-blur-sm"><i data-lucide="check" class="w-4 h-4" stroke-width="3"></i></div>';
+                    } else if (idx === selectedIndex) {
+                        btnClass = "ios-btn bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-[0_10px_30px_rgba(239,68,68,0.3)] border border-red-400 opacity-90";
+                        iconHtml = '<div class="bg-white/20 p-1 rounded-full backdrop-blur-sm"><i data-lucide="x" class="w-4 h-4" stroke-width="3"></i></div>';
+                    } else {
+                        btnClass = "ios-btn bg-gray-50/50 text-gray-300 border-transparent shadow-none cursor-default scale-95 opacity-60";
+                    }
+                }
+
+                buttonsHtml += `
+                <button onclick="handleOptionSelect(${idx})" ${showFeedback ? 'disabled' : ''} class="${btnClass}">
+                    <span class="relative z-10">${opt}</span>
+                    <div class="relative z-10 mr-4 flex items-center justify-center">
+                        ${iconHtml}
+                    </div>
+                </button>
+                `;
+            });
+
+            grid.innerHTML = buttonsHtml;
+            lucide.createIcons();
+        }
+
+        function renderResultsScreen() {
+            const { totalScore, mcqScore, tfScore, correctAnswers } = calculateResults();
+            const percentage = Math.round((totalScore / 80) * 100);
+            
+            let grade = '';
+            let themeColor = '';
+            
+            if (percentage >= 90) { grade = 'ممتاز'; themeColor = 'text-green-500'; }
+            else if (percentage >= 80) { grade = 'جيد جداً'; themeColor = 'text-emerald-500'; }
+            else if (percentage >= 70) { grade = 'جيد'; themeColor = 'text-blue-500'; }
+            else if (percentage >= 50) { grade = 'مقبول'; themeColor = 'text-amber-500'; }
+            else { grade = 'ضعيف'; themeColor = 'text-red-500'; }
+
+            // Generate Answers List
+            let answersListHtml = '';
+            fullQuestions.forEach((q, i) => {
+                const userAns = state.answers[q.id];
+                const correctAns = q.a;
+                const isCorrect = userAns === correctAns;
+
+                answersListHtml += `
+                <div class="p-4 rounded-2xl border transition-all ${isCorrect ? 'bg-green-50/50 border-green-100' : 'bg-red-50/50 border-red-100'}">
+                    <div class="flex gap-3">
+                        <span class="w-8 h-8 flex items-center justify-center rounded-full font-bold text-sm shrink-0 ${isCorrect ? 'bg-green-200 text-green-700' : 'bg-red-200 text-red-700'}">${i + 1}</span>
+                        <div class="flex-1">
+                            <p class="font-bold text-slate-800 mb-2">${q.q}</p>
+                            ${!isCorrect ? `
+                            <div class="flex items-center gap-2 text-sm text-red-500 font-medium mb-1">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                                <span>إجابتك: ${q.opts[userAns] !== undefined ? q.opts[userAns] : 'لم يتم الإجابة'}</span>
+                            </div>` : ''}
+                            <div class="flex items-center gap-2 text-sm text-green-600 font-bold">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                <span>الإجابة الصحيحة: ${q.opts[correctAns]}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+
+            return `
+            <div class="animate-fadeIn pb-10 flex flex-col gap-6">
+                
+                <!-- Hero Score Card -->
+                <div class="glass-card p-8 md:p-12 text-center relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400"></div>
+                    
+                    <h2 class="text-2xl font-bold text-slate-400 mb-2">النتيجة النهائية</h2>
+                    
+                    <div class="my-8 inline-block relative">
+                       <!-- Glassy Background for Score -->
+                       <div class="absolute inset-0 bg-blue-500/10 blur-xl rounded-full transform scale-150"></div>
+                       <div class="relative bg-white/80 backdrop-blur-xl border border-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] rounded-[2rem] px-10 py-6">
+                         <div class="flex items-baseline gap-2 justify-center">
+                            <span class="text-6xl md:text-7xl font-black ${themeColor} drop-shadow-sm">${totalScore}</span>
+                            <span class="text-2xl text-slate-400 font-bold">/ 80</span>
+                         </div>
+                         <div class="mt-2 text-xl font-bold ${themeColor} opacity-80">${grade} (${percentage}%)</div>
+                       </div>
+                    </div>
+
+                    <p class="text-slate-500 mb-8 max-w-md mx-auto leading-relaxed">
+                       ${percentage >= 80 ? 'ما شاء الله! أداء رائع يدل على فهم عميق.' : 'بداية جيدة! راجع الإجابات لتعزيز معلوماتك.'}
+                       <br/>علامتك النهائية هي <span class="font-bold text-slate-800">${totalScore}</span> درجة.
+                    </p>
+
+                    <div class="flex flex-wrap justify-center gap-4">
+                      <div class="bg-blue-50 px-6 py-3 rounded-2xl border border-blue-100 flex flex-col items-center min-w-[100px]">
+                        <span class="text-xs font-bold text-blue-400 mb-1">متعدد</span>
+                        <span class="text-xl font-black text-blue-600">${mcqScore} <span class="text-xs text-blue-300">/ 60</span></span>
+                      </div>
+                      <div class="bg-purple-50 px-6 py-3 rounded-2xl border border-purple-100 flex flex-col items-center min-w-[100px]">
+                        <span class="text-xs font-bold text-purple-400 mb-1">صواب/خطأ</span>
+                        <span class="text-xl font-black text-purple-600">${tfScore} <span class="text-xs text-purple-300">/ 20</span></span>
+                      </div>
+                      <div class="bg-emerald-50 px-6 py-3 rounded-2xl border border-emerald-100 flex flex-col items-center min-w-[100px]">
+                        <span class="text-xs font-bold text-emerald-400 mb-1">الصحيحة</span>
+                        <span class="text-xl font-black text-emerald-600">${correctAnswers} <span class="text-xs text-emerald-300">/ 40</span></span>
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Actions Grid -->
+                <div class="grid md:grid-cols-2 gap-4">
+                     <!-- Analysis Card -->
+                     <div class="glass-card p-6 flex flex-col justify-center">
+                        <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                           <i data-lucide="bar-chart-2" class="text-indigo-500 w-5 h-5"></i>
+                           مؤشر الأداء
+                        </h3>
+                        <div class="space-y-4">
+                           <div>
+                              <div class="flex justify-between text-sm font-bold text-slate-500 mb-1">
+                                 <span>الاختيار من متعدد</span>
+                                 <span>${Math.round((mcqScore/60)*100)}%</span>
+                              </div>
+                              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                                 <div class="h-full bg-blue-500 rounded-full" style="width: ${(mcqScore/60)*100}%"></div>
+                              </div>
+                           </div>
+                           <div>
+                              <div class="flex justify-between text-sm font-bold text-slate-500 mb-1">
+                                 <span>الصواب والخطأ</span>
+                                 <span>${Math.round((tfScore/20)*100)}%</span>
+                              </div>
+                              <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+                                 <div class="h-full bg-purple-500 rounded-full" style="width: ${(tfScore/20)*100}%"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <!-- Restart Card -->
+                     <div class="glass-card p-6 flex flex-col items-center justify-center text-center bg-gradient-to-br from-white to-blue-50">
+                        <i data-lucide="zap" class="text-amber-400 fill-current w-10 h-10 mb-2"></i>
+                        <h3 class="text-lg font-bold text-slate-700 mb-4">ما هي خطوتك التالية؟</h3>
+                        <div class="w-full flex flex-col gap-3">
+                            <button onclick="restartQuiz()" class="ios-primary-btn w-full justify-center !text-base !py-3">
+                                <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                                إعادة الاختبار
+                            </button>
+                            <button onclick="goHome()" class="ios-secondary-btn w-full justify-center !text-base !py-3">
+                                <i data-lucide="home" class="w-5 h-5 text-slate-500"></i>
+                                اللوحة الرئيسية
+                            </button>
+                        </div>
+                     </div>
+                </div>
+
+                <!-- Answer Review -->
+                <div class="glass-card p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                      <i data-lucide="book-open" class="text-indigo-500 w-6 h-6"></i>
+                      مراجعة الإجابات
+                    </h3>
+                    <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                        ${answersListHtml}
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        function render() {
+            container.innerHTML = '';
+            
+            container.innerHTML += renderHeader();
+
+            if (state.step === 'start') {
+                container.innerHTML += renderStartScreen();
+            } else if (state.step === 'quiz') {
+                container.innerHTML += renderQuizScreen();
+                renderQuizButtons(); // Add buttons separately
+            } else if (state.step === 'results') {
+                container.innerHTML += renderResultsScreen();
+            }
+
+            // تفعيل الأيقونات
+            lucide.createIcons();
+        }
+
+        // ---------------------------------------------------------
+        // التشغيل الأولي
+        // ---------------------------------------------------------
+        render();
+
+    </script>
+</body>
+</html>
